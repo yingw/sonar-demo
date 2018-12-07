@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wilmar.demo.mapper.UserMapper">
+    <resultMap id="User" type="user">
+        <id property="id" column="ID"/>
+        <result column="USERNAME" property="username"/>
+        <result column="PASSWORD" property="password"/>
+        <result column="GENDER" property="gender"/>
+    </resultMap>
+
+    <resultMap id="UserRoles" type="user" extends="User">
+        <!--fetchType="eager"-->
+        <!--引用 RoleMapper.xml 里的 Role 定义-->
+        <collection property="roles" resultMap="cn.wilmar.boot.mapper.RoleMapper.Role">
+        </collection>
+    </resultMap>
+
+    <sql id="User_Column_List">
+        u.id, u.username, u.password, u.gender
+    </sql>
+
+    <select id="getByUsername" parameterType="string" resultType="user">
+        SELECT
+        <include refid="User_Column_List"/>
+        FROM USER u
+        WHERE USERNAME = #{username}
+    </select>
+
+    <select id="selectUserWithRoles" resultMap="UserRoles">
+        SELECT
+        <include refid="User_Column_List"/>,
+        <include refid="cn.wilmar.boot.mapper.RoleMapper.Role_Column_List"/>
+        FROM user u
+        LEFT JOIN USER_ROLE ur ON u.ID = ur.USER_ID
+        LEFT JOIN ROLE r ON ur.ROLE_ID = r.ID
+        WHERE u.ID = #{userId}
+    </select>
+
+    <select id="selectUsers" resultType="User">
+        SELECT
+        <include refid="User_Column_List"/>
+        FROM user u
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND username LIKE concat('%' , #{keyword} , '%')
+            </if>
+            <if test="gender != null and gender != ''">
+                AND gender = #{gender}
+            </if>
+        </where>
+        <choose>
+            <when test="order != null and order != ''">
+                ORDER BY ${order}
+            </when>
+            <otherwise>
+                ORDER BY id asc
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>

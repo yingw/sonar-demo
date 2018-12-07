@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+        <!-- 驼峰法命名转下划线命名 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <package name="cn.wilmar.demo.model"/>
+    </typeAliases>
+
+    <!-- mapping 文件路径配置 （本可以省略，在用了 refid 后不写找不到）-->
+    <mappers>
+        <package name="cn.wilmar.demo.mapper"/>
+        <!--<mapper resource="UserMapper.xml"/>-->
+    </mappers>
+</configuration>

@@ -25,8 +25,5 @@ public class Role {
 
     String description;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    private Set<Resource> resources;
-
 }
 

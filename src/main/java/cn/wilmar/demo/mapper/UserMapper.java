@@ -6,6 +6,4 @@ import tk.mybatis.mapper.common.Mapper;
 
 @Repository
 public interface UserMapper extends Mapper<User> {
-
-    User selectUserById(Long id);
 }

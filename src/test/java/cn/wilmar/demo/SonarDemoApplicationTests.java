@@ -1,6 +1,5 @@
 package cn.wilmar.demo;
 
-import cn.wilmar.demo.web.UserController;
 import net.minidev.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -37,52 +35,128 @@ public class SonarDemoApplicationTests {
     }
 
     @Test
-    public void hello() throws Exception {
-        Assert.assertEquals("Hello, World!", sonarDemoApplication.hello());
-        mockMvc.perform(get("/")).andExpect(status().isOk());
+    public void hello() {
+        try {
+            Assert.assertEquals("Hello, World!", sonarDemoApplication.hello());
+            mockMvc.perform(get("/")).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 
     @Test
-    public void getAllRoles() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders.get("/role/getAllRoles"))
-                .andExpect(status().isOk());
+    public void getAllRoles() {
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/role/getAllRoles"))
+                    .andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Test
-    public void getUserName() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/user/getUserName/4"))
-				.andExpect(status().isOk());
+    public void getUserName() {
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/user/getUserName/4"))
+                    .andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Test
-    public void getAllUsers() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders.post("/user/getAllUsers"))
-                .andExpect(status().isOk());
-    }
-    @Test
-    public void saveUser() throws Exception {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",21L);
-        map.put("username","xxx");
-        map.put("password","111111");
-        map.put("role","");
-        mockMvc.perform(MockMvcRequestBuilders.post("/user/addUser").content(JSONObject.toJSONString(map)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    public void getAllUsers() {
+        try{
+            mockMvc.perform(MockMvcRequestBuilders.post("/user/getAllUsers"))
+                    .andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Test
-    public void updateUser() throws Exception {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",4L);
-        map.put("username","xxx111");
-        map.put("password","111");
-        map.put("role","");
-        mockMvc.perform(MockMvcRequestBuilders.put("/user/updateUser").content(JSONObject.toJSONString(map)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+    public void saveUser() {
+        try{
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",21L);
+            map.put("username","xxx");
+            map.put("password","111111");
+            map.put("role","");
+            mockMvc.perform(MockMvcRequestBuilders.post("/user/addUser").content(JSONObject.toJSONString(map)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Test
-    public void deleteUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/{id}",2L)).andExpect(status().isOk());
+    public void updateUser() {
+        try{
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",4L);
+            map.put("username","xxx111");
+            map.put("password","111");
+            map.put("role","");
+            mockMvc.perform(MockMvcRequestBuilders.put("/user/updateUser").content(JSONObject.toJSONString(map)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void deleteUser() {
+        try{
+            mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/{id}",2L)).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetUserNameFail(){
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/user/getUserName/50"))
+                    .andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testDeleteUserFail(){
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/{id}",50L)).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSaveUserFail() {
+        try{
+            Map<String,Object> map = new HashMap<>();
+            mockMvc.perform(MockMvcRequestBuilders.post("/user/addUser").content(JSONObject.toJSONString(map)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void testUpdateUserError() {
+        try{
+            Map<String,Object> map = new HashMap<>();
+            mockMvc.perform(MockMvcRequestBuilders.put("/user/updateUser").content(JSONObject.toJSONString(map)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Test

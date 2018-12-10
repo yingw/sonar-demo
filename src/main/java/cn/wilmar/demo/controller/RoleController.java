@@ -1,7 +1,8 @@
-package cn.wilmar.demo.web;
+package cn.wilmar.demo.controller;
 
-import cn.wilmar.demo.mapper.RoleMapper;
 import cn.wilmar.demo.model.Role;
+import cn.wilmar.demo.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,14 +14,11 @@ import java.util.List;
 @RequestMapping("/role")
 public class RoleController {
 
-    private final RoleMapper roleMapper;
-
-    public RoleController(RoleMapper roleMapper) {
-        this.roleMapper = roleMapper;
-    }
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/getAllRoles")
     public List<Role> getAll() {
-        return roleMapper.selectAll();
+        return roleService.getAll();
     }
 }

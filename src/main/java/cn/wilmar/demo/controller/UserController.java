@@ -1,6 +1,6 @@
 package cn.wilmar.demo.controller;
 
-import cn.wilmar.demo.model.User;
+import cn.wilmar.demo.entity.User;
 import cn.wilmar.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

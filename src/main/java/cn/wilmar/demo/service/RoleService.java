@@ -1,6 +1,6 @@
 package cn.wilmar.demo.service;
 
-import cn.wilmar.demo.model.Role;
+import cn.wilmar.demo.entity.Role;
 
 import java.util.List;
 

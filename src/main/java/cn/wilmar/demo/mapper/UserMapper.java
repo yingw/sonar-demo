@@ -1,6 +1,6 @@
 package cn.wilmar.demo.mapper;
 
-import cn.wilmar.demo.model.User;
+import cn.wilmar.demo.entity.User;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 

@@ -1,6 +1,6 @@
 package cn.wilmar.demo.controller;
 
-import cn.wilmar.demo.model.Role;
+import cn.wilmar.demo.entity.Role;
 import cn.wilmar.demo.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

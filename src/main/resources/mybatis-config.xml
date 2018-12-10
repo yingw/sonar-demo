@@ -11,7 +11,7 @@
     </settings>
 
     <typeAliases>
-        <package name="cn.wilmar.demo.model"/>
+        <package name="cn.wilmar.demo.entity"/>
     </typeAliases>
 
     <!-- mapping 文件路径配置 （本可以省略，在用了 refid 后不写找不到）-->

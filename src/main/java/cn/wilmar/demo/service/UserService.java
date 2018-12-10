@@ -1,6 +1,6 @@
 package cn.wilmar.demo.service;
 
-import cn.wilmar.demo.model.User;
+import cn.wilmar.demo.entity.User;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 

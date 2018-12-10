@@ -1,4 +1,4 @@
-package cn.wilmar.demo.model;
+package cn.wilmar.demo.entity;
 
 import lombok.Data;
 

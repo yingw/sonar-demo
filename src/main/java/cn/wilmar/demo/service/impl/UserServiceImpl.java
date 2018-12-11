@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getUserName(@PathVariable("id") Long id) {
         try{
-
             User user = userMapper.selectByPrimaryKey(id);
             if (user == null){
                 throw new Exception(STRING);

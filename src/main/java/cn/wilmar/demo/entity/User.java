@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -18,7 +17,6 @@ public class User {
     @NotEmpty
     private String username;
     private String password;
-    private Gender gender = Gender.randomGender();
-
-    Set<Role> roles = new HashSet<>();
+    private String gender;
+    private Set<Role> roles;
 }

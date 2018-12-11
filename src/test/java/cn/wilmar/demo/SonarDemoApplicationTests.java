@@ -1,6 +1,5 @@
 package cn.wilmar.demo;
 
-import cn.wilmar.demo.entity.Gender;
 import cn.wilmar.demo.entity.Role;
 import cn.wilmar.demo.entity.User;
 import cn.wilmar.demo.service.UserService;
@@ -55,7 +54,7 @@ public class SonarDemoApplicationTests {
 
 
     @Test
-    public void getAllRoles() {
+    public void testGetAllRolesUrl() {
         try {
             mockMvc.perform(MockMvcRequestBuilders.get("/role/getAllRoles"))
                     .andExpect(status().isOk());
@@ -66,7 +65,7 @@ public class SonarDemoApplicationTests {
     }
 
     @Test
-    public void getUserName() {
+    public void testGetUserNameUrl() {
         try {
             mockMvc.perform(MockMvcRequestBuilders.get("/user/getUserName/4"))
                     .andExpect(status().isOk());
@@ -77,7 +76,17 @@ public class SonarDemoApplicationTests {
     }
 
     @Test
-    public void getAllUsers() {
+    public void testGetUserNameFailUrl(){
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.get("/user/getUserName/50"))
+                    .andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetAllUsersUrl() {
         try{
             mockMvc.perform(MockMvcRequestBuilders.post("/user/getAllUsers"))
                     .andExpect(status().isOk());
@@ -88,7 +97,7 @@ public class SonarDemoApplicationTests {
     }
 
     @Test
-    public void saveUserURL() {
+    public void testSaveUserUrl() {
         try{
             Map<String,Object> map = new HashMap<>();
             map.put("id",21L);
@@ -103,50 +112,7 @@ public class SonarDemoApplicationTests {
     }
 
     @Test
-    public void updateUserURL() {
-        try{
-            Map<String,Object> map = new HashMap<>();
-            map.put("id",4L);
-            map.put("username","xxx111");
-            map.put("password","111");
-            map.put("role","");
-            mockMvc.perform(MockMvcRequestBuilders.put("/user/updateUser").content(JSONObject.toJSONString(map)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-    @Test
-    public void deleteUserURL() {
-        try{
-            mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/{id}",2L)).andExpect(status().isOk());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testGetUserNameFailURL(){
-        try {
-            mockMvc.perform(MockMvcRequestBuilders.get("/user/getUserName/50"))
-                    .andExpect(status().isOk());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testDeleteUserFailURL(){
-        try {
-            mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/{id}",50L)).andExpect(status().isOk());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testSaveUserFailURL() {
+    public void testSaveUserFailUrl() {
         try{
             Map<String,Object> map = new HashMap<>();
             mockMvc.perform(MockMvcRequestBuilders.post("/user/addUser").content(JSONObject.toJSONString(map)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
@@ -162,7 +128,7 @@ public class SonarDemoApplicationTests {
         user.setId(24L);
         user.setPassword("1234");
         user.setUsername("fefd");
-        user.setGender(Gender.Male);
+        user.setGender("Male");
         Set<Role> roles = new HashSet<>();
         Role role = new Role();
         role.setId(2);
@@ -183,8 +149,34 @@ public class SonarDemoApplicationTests {
         user.setId(1L);
         user.setPassword("1234");
         user.setUsername("fefd");
-        user.setGender(Gender.Male);
+        user.setGender("Male");
         userService.saveUser(user);
+    }
+
+    @Test
+    public void testUpdateUserUrl() {
+        try{
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",4L);
+            map.put("username","xxx111");
+            map.put("password","111");
+            map.put("role","");
+            mockMvc.perform(MockMvcRequestBuilders.put("/user/updateUser").content(JSONObject.toJSONString(map)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void testUpdateUserFailUrl() {
+        try{
+            Map<String,Object> map = new HashMap<>();
+            mockMvc.perform(MockMvcRequestBuilders.put("/user/updateUser").content(JSONObject.toJSONString(map)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Test
@@ -193,7 +185,7 @@ public class SonarDemoApplicationTests {
         user.setId(20L);
         user.setPassword("1234");
         user.setUsername("fefd");
-        user.setGender(Gender.Male);
+        user.setGender("Male");
         userService.updateUser(user);
     }
 
@@ -208,8 +200,27 @@ public class SonarDemoApplicationTests {
         user.setId(30L);
         user.setPassword("1234");
         user.setUsername("fefd");
-        user.setGender(Gender.Male);
+        user.setGender("Male");
         userService.updateUser(user);
+    }
+
+
+    @Test
+    public void testDeleteUserUrl() {
+        try{
+            mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/{id}",2L)).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testDeleteUserFailUrl(){
+        try {
+            mockMvc.perform(MockMvcRequestBuilders.delete("/user/deleteUser/{id}",50L)).andExpect(status().isOk());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Test

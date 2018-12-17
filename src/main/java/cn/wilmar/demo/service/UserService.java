@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface UserService {
     List<User> getAllUsers();
-    String getUserName(@PathVariable("id") Long id);
     void saveUser(@RequestBody User user);
     void updateUser(@RequestBody User user);
+    String getUserName(@PathVariable("id") Long id);
     void deleteUser(@PathVariable("id") Long id);
 }
